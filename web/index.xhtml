@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:commandButton value="Nuevo Integrante" oncomplete="dlgNuevo.show();"/>
+        </h:form>
+        <h:form id="frmIntegrantes">
+            <p:dataTable var="integrante" value="#{integranteBean.integrantes}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{integrante.id}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{integrante.nombre}" />
+                </p:column>
+
+                <p:column headerText="Apellido">
+                    <h:outputText value="#{integrante.apellido}" />
+                </p:column>
+
+                <p:column headerText="Telefono">
+                    <h:outputText value="#{integrante.telefono}" />
+                </p:column>
+                
+                 <p:column headerText="Celular">
+                     <h:outputText value="#{integrante.celular}" />
+                </p:column>
+                
+                 <p:column headerText="Operador">
+                     <h:outputText value="#{integrante.operador}" />
+                </p:column>
+                
+                <p:column style="width:8%">  
+                    <p:commandButton value="Editar" update=":frmIntegrantes" oncomplete="carDialog.show()" icon="ui-icon-edit" title="Editar"/>  
+                    <p:commandButton value="Cancelar" update=":frmIntegrantes" oncomplete="carDialog.show()" icon="ui-icon-delete" title="Eliminar"/>  
+                </p:column> 
+            </p:dataTable>
+        </h:form>
+        
+        <h:form id="frmNuevo">
+             <p:dialog header="Nuevo Integrante" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
+                        showEffect="fade" hideEffect="explode" modal="true">  
+
+                <h:panelGrid id="pgNuevo" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                    <h:outputText value="Nombre:" /> 
+                    <h:outputText value="Apellido:" />  
+                    
+                    <p:inputText value="#{integranteBean.integrante.nombre}"/>
+                    <p:inputText value="#{integranteBean.integrante.apellido}"/>
+            
+                    <h:outputText value="Direccion:" /> 
+                    <h:outputText value="Referencia:" />  
+                   
+                    <p:inputTextarea value="#{integranteBean.integrante.direccion}" rows="5" cols="33"/>
+                    <p:inputTextarea value="#{integranteBean.integrante.referencia}" rows="5" cols="33"/>
+                    
+                    <h:outputText value="Lineas" /> 
+                    <h:outputText value="Telefono" />  
+                    
+                    <p:inputText value="#{integranteBean.integrante.lineas}"/>
+                    <p:inputText value="#{integranteBean.integrante.telefono}"/>
+                    
+                    <h:outputText value="Celular:" /> 
+                    <h:outputText value="Operador:" />  
+                    
+                    <p:inputText value="#{integranteBean.integrante.celular}"/>
+                    <p:selectOneMenu value="#{integranteBean.integrante.operador}" id="city">  
+                            <f:selectItem itemLabel="Seleccione" itemValue="" /> 
+                            <f:selectItem itemLabel="Claro" itemValue="Claro" /> 
+                            <f:selectItem itemLabel="Digicel" itemValue="Digicel" /> 
+                            <f:selectItem itemLabel="Movistar" itemValue="Movistar" />
+                        </p:selectOneMenu> 
+                    
+                    <h:outputText value="Email" /> 
+                    &nbsp;
+                    <p:inputText value="#{integranteBean.integrante.email}"/>
+                    &nbsp;
+                   </h:panelGrid>  
+                   <p:separator/>
+                   
+                   <p:commandButton  value="Guardar" update=":frmIntegrantes" actionListener="#{integranteBean.insertar()}" oncomplete="dlgNuevo.hide()" icon="ui-icon-edit" title="Save"/>  
+                   <p:commandButton  value="Cancerlar" update=":frmIntegrantes" oncomplete="dlgNuevo.hide()" icon="ui-icon-delete" title="Cancel"/>  
+                
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

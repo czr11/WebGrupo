@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-23-2013 11:00:50 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="grupo" name="com.grupo.model.Integrante" table="integrante">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="nombre" type="string">
+      <column length="30" name="nombre" not-null="true"/>
+    </property>
+    <property name="apellido" type="string">
+      <column length="30" name="apellido" not-null="true"/>
+    </property>
+    <property name="direccion" type="string">
+      <column length="50" name="direccion" not-null="true"/>
+    </property>
+    <property name="referencia" type="string">
+      <column length="50" name="referencia" not-null="true"/>
+    </property>
+    <property name="lineas" type="string">
+      <column length="50" name="lineas" not-null="true"/>
+    </property>
+    <property name="telefono" type="string">
+      <column length="15" name="telefono" not-null="true"/>
+    </property>
+    <property name="celular" type="string">
+      <column length="15" name="celular" not-null="true"/>
+    </property>
+    <property name="operador" type="string">
+      <column length="15" name="operador" not-null="true"/>
+    </property>
+    <property name="email" type="string">
+      <column length="25" name="email" not-null="true"/>
+    </property>
+    <property name="estado" type="boolean">
+      <column name="estado" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>
