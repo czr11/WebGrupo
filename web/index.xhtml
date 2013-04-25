@@ -47,7 +47,7 @@
         <h:form id="frmNuevo">
              <p:dialog header="Nuevo Integrante" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
                         showEffect="fade" hideEffect="explode" modal="true">  
-
+                <p:growl id="growl" showDetail="true" sticky="true" />
                 <h:panelGrid id="pgNuevo" columns="2" cellpadding="4" style="margin:0 auto;">  
 
                     <h:outputText value="Nombre:" /> 
@@ -86,7 +86,7 @@
                    </h:panelGrid>  
                    <p:separator/>
                    
-                   <p:commandButton  value="Guardar" update=":frmIntegrantes" actionListener="#{integranteBean.insertar()}" oncomplete="dlgNuevo.hide()" icon="ui-icon-edit" title="Save"/>  
+                   <p:commandButton  value="Guardar" update=":frmIntegrantes,growl" actionListener="#{integranteBean.insertar()}" oncomplete="dlgNuevo.hide()" icon="ui-icon-edit" title="Save"/>  
                    <p:commandButton  value="Cancerlar" update=":frmIntegrantes" oncomplete="dlgNuevo.hide()" icon="ui-icon-delete" title="Cancel"/>  
                 
             </p:dialog>
