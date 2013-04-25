@@ -56,6 +56,7 @@ public class IntegranteBean {
         FacesContext context = FacesContext.getCurrentInstance();  
           
         context.addMessage(null, new FacesMessage("Nuevo Integrante guardado Exitosamente!."));  
+        integrante = new Integrante();
     }
            
     

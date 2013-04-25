@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:commandButton value="Nuevo Integrante" oncomplete="dlgNuevo.show();"/>
+            <p:commandButton value="Nuevo Integrante"  update=":frmNuevo:pgNuevo" oncomplete="dlgNuevo.show();"/>
         </h:form>
         <h:form id="frmIntegrantes">
             <p:dataTable var="integrante" value="#{integranteBean.integrantes}">
