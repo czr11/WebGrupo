@@ -14,7 +14,7 @@ import org.hibernate.Session;
  *
  * @author cesar
  */
-public class IntegranteDaoImpl implements IntegranteDao{
+public class IntegranteDaoImpl implements IntegranteDao {
 
     @Override
     public void insertar(Integrante integrante) {
@@ -22,11 +22,11 @@ public class IntegranteDaoImpl implements IntegranteDao{
         try {
             session.beginTransaction();
             session.save(integrante);
-            session.beginTransaction().commit(); 
-        }catch(Exception e){
-            System.out.println("Error al insertar"+ e.getMessage());
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error al insertar" + e.getMessage());
             session.beginTransaction().rollback();
-        }  
+        }
     }
 
     @Override
@@ -36,8 +36,8 @@ public class IntegranteDaoImpl implements IntegranteDao{
             session.beginTransaction();
             session.update(integrante);
             session.beginTransaction().commit();
-        }catch(Exception e){
-            System.out.println("Error al eliminar"+ e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al eliminar" + e.getMessage());
             session.beginTransaction().rollback();
         }
     }
@@ -49,16 +49,16 @@ public class IntegranteDaoImpl implements IntegranteDao{
             session.beginTransaction();
             session.delete(integrante);
             session.beginTransaction().commit();
-        }catch(Exception e){
-            System.out.println("Error al eliminar"+ e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al eliminar" + e.getMessage());
             session.beginTransaction().rollback();
-        } 
+        }
     }
 
     @Override
     public Integrante buscarporId(Integer id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Integrante) session.load(Integrante.class , id);
+        return (Integrante) session.load(Integrante.class, id);
     }
 
     @Override
@@ -66,5 +66,4 @@ public class IntegranteDaoImpl implements IntegranteDao{
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("from Integrante").list();
     }
-    
 }

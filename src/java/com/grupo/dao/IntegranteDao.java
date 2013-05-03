@@ -12,9 +12,14 @@ import java.util.List;
  * @author cesar
  */
 public interface IntegranteDao {
+
     public void insertar(Integrante integrante);
+
     public void actucalizar(Integrante integrante);
+
     public void eliminar(Integrante integrante);
+
     public Integrante buscarporId(Integer id);
+
     public List<Integrante> buscartodos();
 }

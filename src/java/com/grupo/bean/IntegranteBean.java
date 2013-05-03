@@ -18,7 +18,7 @@ import javax.faces.event.ActionEvent;
  *
  * @author cesar
  */
-@ManagedBean(name="integranteBean")
+@ManagedBean(name = "integranteBean")
 @SessionScoped
 public class IntegranteBean {
 
@@ -27,7 +27,7 @@ public class IntegranteBean {
      */
     private Integrante integrante;
     private List<Integrante> integrantes;
-            
+
     public IntegranteBean() {
         integrante = new Integrante();
     }
@@ -41,23 +41,48 @@ public class IntegranteBean {
     }
 
     public List<Integrante> getIntegrantes() {
-        IntegranteDao  integranteDao = new IntegranteDaoImpl();
+        IntegranteDao integranteDao = new IntegranteDaoImpl();
         integrantes = integranteDao.buscartodos();
         return integrantes;
     }
-    
-    public void prepararInsertar(ActionEvent actionEvent ){
+
+    public void prepararInsertar(ActionEvent actionEvent) {
         integrante = new Integrante();
     }
-    
-    public void insertar(){
+
+    public void insertar() {
         IntegranteDao integranteDao = new IntegranteDaoImpl();
         integranteDao.insertar(integrante);
-        FacesContext context = FacesContext.getCurrentInstance();  
-          
-        context.addMessage(null, new FacesMessage("Nuevo Integrante guardado Exitosamente!."));  
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage("Nuevo Integrante guardado Exitosamente!."));
         integrante = new Integrante();
     }
-           
-    
+
+    public void prepararActualizar(Integer id) {
+        IntegranteDao integranteDao = new IntegranteDaoImpl();
+        integrante = integranteDao.buscarporId(id);
+    }
+
+    public void actualizar() {
+        IntegranteDao integranteDao = new IntegranteDaoImpl();
+        integranteDao.actucalizar(integrante);
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage("Integrante Actualizado Exitosamente!."));
+        integrante = new Integrante();
+    }
+
+    public void eliminar() {
+        IntegranteDao integranteDao = new IntegranteDaoImpl();
+        integranteDao.eliminar(integrante);
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.addMessage(null, new FacesMessage("Integrante Eliminado Exitosamente!."));
+        integrante = new Integrante();
+    }
+
+    public void cancelar(ActionEvent actionEvent) {
+        integrante = new Integrante();
+    }
 }

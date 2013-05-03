@@ -8,89 +8,156 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <!--Frm: Boton nuevo integrante -->
         <h:form>
             <p:commandButton value="Nuevo Integrante"  update=":frmNuevo:pgNuevo" oncomplete="dlgNuevo.show();"/>
         </h:form>
+        <!--Frm: Tabla integrantes -->
         <h:form id="frmIntegrantes">
-            <p:dataTable var="integrante" value="#{integranteBean.integrantes}">
+            <p:dataTable var="integrante" emptyMessage="No hay integrantes disponibles" value="#{integranteBean.integrantes}" paginator="true" rows="10"  
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
                 <p:column headerText="ID">
                     <h:outputText value="#{integrante.id}" />
                 </p:column>
 
-                <p:column headerText="Nombre">
+                <p:column headerText="Nombre" filterBy="#{integrante.nombre}" >
                     <h:outputText value="#{integrante.nombre}" />
                 </p:column>
 
-                <p:column headerText="Apellido">
+                <p:column headerText="Apellido" filterBy="#{integrante.apellido}">
                     <h:outputText value="#{integrante.apellido}" />
                 </p:column>
 
                 <p:column headerText="Telefono">
                     <h:outputText value="#{integrante.telefono}" />
                 </p:column>
-                
-                 <p:column headerText="Celular">
-                     <h:outputText value="#{integrante.celular}" />
+
+                <p:column headerText="Celular">
+                    <h:outputText value="#{integrante.celular}" />
                 </p:column>
-                
-                 <p:column headerText="Operador">
-                     <h:outputText value="#{integrante.operador}" />
+
+                <p:column headerText="Operador">
+                    <h:outputText value="#{integrante.operador}" />
                 </p:column>
-                
+
                 <p:column style="width:8%">  
-                    <p:commandButton value="Editar" update=":frmIntegrantes" oncomplete="carDialog.show()" icon="ui-icon-edit" title="Editar"/>  
-                    <p:commandButton value="Cancelar" update=":frmIntegrantes" oncomplete="carDialog.show()" icon="ui-icon-delete" title="Eliminar"/>  
+                    <p:commandButton update=":frmEditar" icon="ui-icon-edit"
+                                     title="Editar" actionListener="#{integranteBean.prepararActualizar(integrante.id)}"
+                                     oncomplete="dlgEditar.show();"/>  
+                    <p:commandButton update=":frmEliminar" oncomplete="dlgEliminar.show();" icon="ui-icon-delete" title="Eliminar"/>  
                 </p:column> 
             </p:dataTable>
         </h:form>
-        
+        <!--Frm: Formulario nuevo integrante -->
         <h:form id="frmNuevo">
-             <p:dialog header="Nuevo Integrante" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
-                        showEffect="fade" hideEffect="explode" modal="true">  
+            <p:dialog header="Nuevo Integrante" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
+                      showEffect="fade" hideEffect="explode" modal="true">  
                 <p:growl id="growl" showDetail="true" sticky="true" />
                 <h:panelGrid id="pgNuevo" columns="2" cellpadding="4" style="margin:0 auto;">  
 
                     <h:outputText value="Nombre:" /> 
                     <h:outputText value="Apellido:" />  
-                    
+
                     <p:inputText value="#{integranteBean.integrante.nombre}"/>
                     <p:inputText value="#{integranteBean.integrante.apellido}"/>
-            
+
                     <h:outputText value="Direccion:" /> 
                     <h:outputText value="Referencia:" />  
-                   
+
                     <p:inputTextarea value="#{integranteBean.integrante.direccion}" rows="5" cols="33"/>
                     <p:inputTextarea value="#{integranteBean.integrante.referencia}" rows="5" cols="33"/>
-                    
+
                     <h:outputText value="Lineas" /> 
                     <h:outputText value="Telefono" />  
-                    
+
                     <p:inputText value="#{integranteBean.integrante.lineas}"/>
                     <p:inputText value="#{integranteBean.integrante.telefono}"/>
-                    
+
                     <h:outputText value="Celular:" /> 
                     <h:outputText value="Operador:" />  
-                    
+
                     <p:inputText value="#{integranteBean.integrante.celular}"/>
                     <p:selectOneMenu value="#{integranteBean.integrante.operador}" id="city">  
-                            <f:selectItem itemLabel="Seleccione" itemValue="" /> 
-                            <f:selectItem itemLabel="Claro" itemValue="Claro" /> 
-                            <f:selectItem itemLabel="Digicel" itemValue="Digicel" /> 
-                            <f:selectItem itemLabel="Movistar" itemValue="Movistar" />
-                        </p:selectOneMenu> 
-                    
+                        <f:selectItem itemLabel="Seleccione" itemValue="" /> 
+                        <f:selectItem itemLabel="Claro" itemValue="Claro" /> 
+                        <f:selectItem itemLabel="Digicel" itemValue="Digicel" /> 
+                        <f:selectItem itemLabel="Movistar" itemValue="Movistar" />
+                    </p:selectOneMenu> 
+
                     <h:outputText value="Email" /> 
                     &nbsp;
                     <p:inputText value="#{integranteBean.integrante.email}"/>
                     &nbsp;
-                   </h:panelGrid>  
-                   <p:separator/>
-                   
-                   <p:commandButton  value="Guardar" update=":frmIntegrantes,growl" actionListener="#{integranteBean.insertar()}" oncomplete="dlgNuevo.hide()" icon="ui-icon-edit" title="Save"/>  
-                   <p:commandButton  value="Cancerlar" update=":frmIntegrantes" oncomplete="dlgNuevo.hide()" icon="ui-icon-delete" title="Cancel"/>  
-                
+                </h:panelGrid>  
+                <p:separator/>
+
+                <p:commandButton  value="Guardar" update=":frmIntegrantes,growl" actionListener="#{integranteBean.insertar()}" oncomplete="dlgNuevo.hide()" icon="ui-icon-edit" title="Save"/>  
+                <p:commandButton  value="Cancerlar" update=":frmIntegrantes" actionListener="#{integranteBean.cancelar(actionEvent)}" oncomplete="dlgNuevo.hide()" icon="ui-icon-delete" title="Cancel"/>  
+
             </p:dialog>
         </h:form>
+
+
+        <!--Frm: Formulario editar integrante -->
+        <h:form id="frmEditar">
+            <p:dialog header="Editar Integrante" widgetVar="dlgEditar" resizable="false" id="dlgEditar"  
+                      showEffect="fade" hideEffect="explode" modal="true">  
+                <p:growl id="growlEditar" showDetail="true" sticky="true" />
+                <h:panelGrid id="pgEditar" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                    <h:outputText value="Nombre:" /> 
+                    <h:outputText value="Apellido:" />  
+
+                    <p:inputText value="#{integranteBean.integrante.nombre}"/>
+                    <p:inputText value="#{integranteBean.integrante.apellido}"/>
+
+                    <h:outputText value="Direccion:" /> 
+                    <h:outputText value="Referencia:" />  
+
+                    <p:inputTextarea value="#{integranteBean.integrante.direccion}" rows="5" cols="33"/>
+                    <p:inputTextarea value="#{integranteBean.integrante.referencia}" rows="5" cols="33"/>
+
+                    <h:outputText value="Lineas" /> 
+                    <h:outputText value="Telefono" />  
+
+                    <p:inputText value="#{integranteBean.integrante.lineas}"/>
+                    <p:inputText value="#{integranteBean.integrante.telefono}"/>
+
+                    <h:outputText value="Celular:" /> 
+                    <h:outputText value="Operador:" />  
+
+                    <p:inputText value="#{integranteBean.integrante.celular}"/>
+                    <p:selectOneMenu value="#{integranteBean.integrante.operador}" id="city">  
+                        <f:selectItem itemLabel="Seleccione" itemValue="" /> 
+                        <f:selectItem itemLabel="Claro" itemValue="Claro" /> 
+                        <f:selectItem itemLabel="Digicel" itemValue="Digicel" /> 
+                        <f:selectItem itemLabel="Movistar" itemValue="Movistar" />
+                    </p:selectOneMenu> 
+
+                    <h:outputText value="Email" /> 
+                    &nbsp;
+                    <p:inputText value="#{integranteBean.integrante.email}"/>
+                    &nbsp;
+                </h:panelGrid>  
+                <p:separator/>
+
+                <p:commandButton  value="Actualizar" update=":frmIntegrantes,growlEditar" actionListener="#{integranteBean.actualizar()}" oncomplete="dlgEditar.hide()" icon="ui-icon-edit" title="Save"/>  
+                <p:commandButton  value="Cancerlar" update=":frmIntegrantes" actionListener="#{integranteBean.cancelar(actionEvent)}" oncomplete="dlgEditar.hide()" icon="ui-icon-delete" title="Cancel"/>  
+
+            </p:dialog>
+        </h:form>
+
+        <!--Formulario comfirmacion -->
+        <h:form id="frmEliminar">  
+            <p:growl id="growlEliminar" showDetail="true" sticky="true" />
+            <p:confirmDialog id="dlgEliminar" message="Desea eliminar el integrante?"  
+                             header="Eliminar Integrante" severity="alert" widgetVar="confirmation">  
+                <p:commandButton  value="Eliminar" update=":frmIntegrantes,growlEliminar" actionListener="#{integranteBean.eliminar()}" oncomplete="dlgEliminar.hide()" icon="ui-icon-edit" title="Save"/>  
+                <p:commandButton  value="Cancerlar" update=":frmIntegrantes" actionListener="#{integranteBean.cancelar(actionEvent)}" oncomplete="dlgEliminar.hide()" icon="ui-icon-delete" title="Cancel"/>  
+
+            </p:confirmDialog>  
+        </h:form>   
     </h:body>
 </html>
 
